@@ -1,5 +1,4 @@
-
-import 'package:ecomerce_app/feature/onboading/onboading_screen.dart';
+import 'package:ecomerce_app/core/routing/app_route.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -8,8 +7,10 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: OnboadingScreen(),
+      title: 'E-Commerce App',
+      initialRoute: AppRoute.login, // or AppRoute.onboard
+      onGenerateRoute:
+          PageRoute.generateRoute, // <-- THIS works because it's static
     );
   }
 }
