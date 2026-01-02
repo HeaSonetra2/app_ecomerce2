@@ -1,4 +1,5 @@
 import 'package:ecomerce_app/core/routing/app_route.dart';
+import 'package:ecomerce_app/core/routing/page_route.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -8,9 +9,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'E-Commerce App',
-      initialRoute: AppRoute.login, // or AppRoute.onboard
+      initialRoute: AppRoute.onboard, // or AppRoute.onboard
       onGenerateRoute:
-          PageRoute.generateRoute, // <-- THIS works because it's static
+          AppPageRoute.generateRoute, // <-- THIS works because it's static
     );
   }
 }
