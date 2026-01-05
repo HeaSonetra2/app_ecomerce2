@@ -6,7 +6,7 @@ import 'package:ecomerce_app/feature/auth/domain/repositories/auth_repository.da
 class RepositoryImpl implements AuthRepository {
   final AuthRemoteDatasource remote;
 
-  RepositoryImpl({required this.remote});
+  RepositoryImpl( this.remote);
 
   @override
   Future<User> login({required String phone, required String password}) async {
