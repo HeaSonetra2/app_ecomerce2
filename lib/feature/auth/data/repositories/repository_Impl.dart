@@ -11,7 +11,6 @@ class RepositoryImpl implements AuthRepository {
   @override
   Future<User> login({required String phone, required String password}) async {
     final json = await remote.login(phone, password);
-
     return UserModel.fromJson(json);
   }
 }

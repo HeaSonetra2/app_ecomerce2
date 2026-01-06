@@ -39,17 +39,13 @@ class OnboadingScreen extends StatelessWidget {
             left: 180,
             child: Container(child: Image.asset('assets/logo/logo_app.png')),
           ),
-
           Positioned(
             bottom: 100,
             left: 20,
             right: 20,
             child: InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                );
+                Navigator.pushNamed(context, AppRoute.login);
               },
               child: Container(
                 width: double.infinity,

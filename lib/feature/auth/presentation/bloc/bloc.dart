@@ -13,7 +13,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         final user = await loginUsecase(event.phone, event.password);
         emit(AuthSuccess(name: user.name));
+         print("LOGIN success========================");
       } catch (e) {
+         print("LOGIN ERROR================: $e");
         emit(AuthError(message: e.toString()));
       }
     });
