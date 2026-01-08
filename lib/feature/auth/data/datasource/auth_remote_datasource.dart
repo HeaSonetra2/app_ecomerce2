@@ -8,4 +8,13 @@ class AuthRemoteDatasource {
       throw Exception('Invalid Credentials');
     }
   }
+
+  Future<Map<String, dynamic>> register(String phone, String password,String name) async {
+    await Future.delayed(const Duration(seconds: 1));
+
+    return {"id": '1', "phone": "0987654321", "name": "Netra"};
+    
+  }
+
+  
 }

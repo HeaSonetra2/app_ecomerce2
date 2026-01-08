@@ -6,11 +6,27 @@ import 'package:ecomerce_app/feature/auth/domain/repositories/auth_repository.da
 class RepositoryImpl implements AuthRepository {
   final AuthRemoteDatasource remote;
 
-  RepositoryImpl( this.remote);
+  RepositoryImpl(this.remote);
 
   @override
   Future<User> login({required String phone, required String password}) async {
     final json = await remote.login(phone, password);
     return UserModel.fromJson(json);
   }
+
+  @override
+  Future<User> register({
+    required String phone,
+    required String password,
+    required String name,
+  }) async {
+    final json = await remote.register(phone, password, name);
+    return UserModel.fromJson(json);
+  }
+
+  @override
+  Future<void> sendOtp(String phone) async{} //Logic SMS
+
+  @override
+  Future<bool> verifyOtp(String phone, String Otp) async => Otp == '1234';
 }

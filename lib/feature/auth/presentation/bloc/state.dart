@@ -15,3 +15,7 @@ class AuthError extends AuthState {
 
   AuthError({required this.message});
 }
+
+
+class OtpSentSuccess extends AuthState{}
+class OtpVerifySuccess extends AuthState{}
