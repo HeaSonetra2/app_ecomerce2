@@ -29,14 +29,23 @@ class LoginScreen extends StatelessWidget {
             },
             child: LoginForm(),
           ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => RegisterScreen()),
-              );
-            },
-            child:Text('register'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Do you have an acount?'),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => RegisterScreen()),
+                  );
+                },
+                child: Text(
+                  'Register',
+                  style: TextStyle(decoration: TextDecoration.underline),
+                ),
+              ),
+            ],
           ),
         ],
       ),
