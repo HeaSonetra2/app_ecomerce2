@@ -11,9 +11,11 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.amber),
       body: Column(
         children: [
+          Spacer(),
+          Image.asset('assets/logo/logo2.png'),
+          SizedBox(height: 20),
           BlocListener<AuthBloc, AuthState>(
             listener: (context, state) {
               if (state is AuthSuccess) {
@@ -29,6 +31,7 @@ class LoginScreen extends StatelessWidget {
             },
             child: LoginForm(),
           ),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -47,6 +50,7 @@ class LoginScreen extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(height: 200),
         ],
       ),
     );

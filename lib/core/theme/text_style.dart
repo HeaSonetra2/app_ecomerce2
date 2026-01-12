@@ -19,6 +19,11 @@ class AppTextStyle {
     color: AppColors.text_color,
     fontWeight: FontWeight.w400
   );
+  static TextStyle heading4 = TextStyle(
+    fontSize: 16,
+    color: AppColors.text_color,
+    fontWeight: FontWeight.w400
+  );
 
   static TextStyle title = TextStyle(
     fontSize: 18,
