@@ -19,3 +19,8 @@ class AuthError extends AuthState {
 
 class OtpSentSuccess extends AuthState{}
 class OtpVerifySuccess extends AuthState{}
+
+
+class OtpSendForResetSuccess extends AuthState{}
+class OtpVerifyForResetSuccess extends AuthState{}
+class PasswordSuccess extends AuthState{}

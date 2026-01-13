@@ -16,8 +16,8 @@ class AuthRemoteDatasource {
     
   }
 
-  
-//accessToken 
-//refreshToken
-  
+  Future<void>  resetPassword(String phone,String newPassword) async{
+     await Future.delayed(const Duration(seconds: 1));
+     //Mock data
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:ecomerce_app/feature/auth/presentation/bloc/bloc.dart';
 import 'package:ecomerce_app/feature/auth/presentation/bloc/state.dart';
 import 'package:ecomerce_app/feature/auth/presentation/screen/register_screen.dart';
+import 'package:ecomerce_app/feature/auth/presentation/screen/reset_password_screen.dart';
 import 'package:ecomerce_app/feature/auth/presentation/widget/login_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,6 +50,18 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ForgotPassword()),
+              );
+            },
+            child: Text(
+              'FogotPassword',
+              style: TextStyle(decoration: TextDecoration.underline),
+            ),
           ),
           SizedBox(height: 200),
         ],

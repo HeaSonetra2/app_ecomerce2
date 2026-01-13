@@ -25,8 +25,13 @@ class RepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> sendOtp(String phone) async{} //Logic SMS
+  Future<void> sendOtp(String phone) async {} //Logic SMS
 
   @override
   Future<bool> verifyOtp(String phone, String Otp) async => Otp == '1234';
+
+  @override
+  Future<void> resetPassword(String phone, String password) {
+    return remote.resetPassword(phone, password);
+  }
 }

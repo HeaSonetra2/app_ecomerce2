@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:ecomerce_app/feature/auth/domain/usecase/login_usecase.dart';
 import 'package:ecomerce_app/feature/auth/domain/usecase/register_usecase.dart';
+import 'package:ecomerce_app/feature/auth/domain/usecase/reset_password_usecase.dart';
 import 'package:ecomerce_app/feature/auth/presentation/bloc/event.dart';
 import 'package:ecomerce_app/feature/auth/presentation/bloc/state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,8 +10,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUsecase loginUsecase;
   final RegisterUsecase registerUsecase;
+  final ResetPasswordUsecase resetPasswordUsecase;
 
-  AuthBloc(this.loginUsecase, this.registerUsecase) : super(AuthInitial()) {
+  AuthBloc(this.loginUsecase, this.registerUsecase, this.resetPasswordUsecase)
+    : super(AuthInitial()) {
     on<LoginEvent>((event, emit) async {
       emit(AuthLoading());
 
@@ -47,6 +52,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           event.name,
         );
         emit(AuthSuccess(name: user.name));
+      } catch (e) {
+        emit(AuthError(message: e.toString()));
+      }
+    });
+
+    on<ResetPasswordEvent>((event, emit) async {
+      emit(AuthLoading());
+
+      try {
+        if (event.newPass.length < 6) {
+          emit(AuthError(message: 'Password must be at least 6 characters'));
+          return;
+        }
+
+        if (event.newPass != event.confirmPass) {
+          emit(AuthError(message: 'Password do not match'));
+          return;
+        }
+
+        await resetPasswordUsecase(event.phone, event.newPass);
+        emit(PasswordSuccess());
       } catch (e) {
         emit(AuthError(message: e.toString()));
       }

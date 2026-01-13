@@ -30,3 +30,30 @@ class CompleteRegisterEvent extends AuthEvent {
     required this.name,
   });
 }
+
+class ResetPasswordEvent extends AuthEvent {
+  final String phone;
+  final String otp;
+  final String newPass;
+  final String confirmPass;
+
+  ResetPasswordEvent({
+    required this.phone,
+    required this.otp,
+    required this.newPass,
+    required this.confirmPass,
+  });
+}
+
+class VerifyOtpForResetEvent extends AuthEvent{
+  final String phone;
+  final String otp;
+
+  VerifyOtpForResetEvent({required this.phone, required this.otp});
+}
+
+class ForgotPasswordEvent extends AuthEvent {
+  final String phone;
+
+  ForgotPasswordEvent({required this.phone});
+}
