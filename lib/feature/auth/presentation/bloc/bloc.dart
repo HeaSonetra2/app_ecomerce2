@@ -57,6 +57,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
 
+    on<VerifyOtpForResetEvent>((event, emit) async {
+      emit(AuthLoading());
+
+      if (event.otp == '1234') {
+        //Mock Otp
+        emit(OtpVerifyForResetSuccess());
+      } else {
+        emit(AuthError(message: 'Invalid OTP'));
+      }
+    });
+
+    on<ForgotPasswordEvent>((event, emit) async {
+      emit(AuthLoading());
+      try {
+        emit(OtpSendForResetSuccess());
+      } catch (e) {
+         emit(AuthError(message: 'Invalid OTP'));
+      }
+    });
+
     on<ResetPasswordEvent>((event, emit) async {
       emit(AuthLoading());
 
@@ -72,7 +92,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
 
         await resetPasswordUsecase(event.phone, event.newPass);
-        emit(PasswordSuccess());
+        emit(PasswordSuccess(message: 'Welcome To Home'));
       } catch (e) {
         emit(AuthError(message: e.toString()));
       }
