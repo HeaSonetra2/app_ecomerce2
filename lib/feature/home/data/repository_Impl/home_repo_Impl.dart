@@ -8,7 +8,7 @@ import 'package:ecomerce_app/feature/home/domain/repository/home_repo.dart';
 class HomeRepoImpl implements HomeRepo {
   final HomeRemoteDatasource remoteDatasource;
 
-  HomeRepoImpl({required this.remoteDatasource});
+  HomeRepoImpl( this.remoteDatasource);
 
   @override
   Future<List<BannerPoster>> getBanner() async {

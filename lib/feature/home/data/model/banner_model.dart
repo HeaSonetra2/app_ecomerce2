@@ -6,8 +6,4 @@ class BannerModel extends BannerPoster {
   factory BannerModel.fromJson(Map<String, dynamic> json) {
     return BannerModel(id: json['id'], imageUrl: json['imageUrl']);
   }
-
-  Map<String, dynamic> toJson() {
-    return {'id': id, 'imageUrl': imageUrl};
-  }
 }
