@@ -2,6 +2,7 @@ import 'package:ecomerce_app/core/routing/app_route.dart';
 import 'package:ecomerce_app/core/theme/app_colors.dart';
 import 'package:ecomerce_app/core/theme/text_style.dart';
 import 'package:ecomerce_app/feature/auth/presentation/screen/login_screen.dart';
+import 'package:ecomerce_app/feature/home/presentation/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class OnboadingScreen extends StatelessWidget {
@@ -45,7 +46,11 @@ class OnboadingScreen extends StatelessWidget {
             right: 20,
             child: InkWell(
               onTap: () {
-                Navigator.pushNamed(context, AppRoute.login);
+                // Navigator.pushNamed(context, AppRoute.login);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => HomeScreen()),
+                );
               },
               child: Container(
                 width: double.infinity,

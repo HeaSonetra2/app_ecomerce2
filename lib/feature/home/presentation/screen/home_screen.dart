@@ -1,5 +1,7 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecomerce_app/core/theme/app_colors.dart';
 import 'package:ecomerce_app/core/theme/text_style.dart';
+import 'package:ecomerce_app/feature/home/domain/entities/banner.dart';
 import 'package:ecomerce_app/feature/home/presentation/bloc/home_bloc.dart';
 import 'package:ecomerce_app/feature/home/presentation/bloc/home_event.dart';
 import 'package:ecomerce_app/feature/home/presentation/bloc/home_state.dart';
@@ -35,6 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               SizedBox(height: 24),
               _buildInputField(),
+              SizedBox(height: 24),
+
               BlocBuilder<HomeBloc, HomeState>(
                 builder: (context, state) {
                   if (state is HomeLoading) {
@@ -56,17 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   }
                   if (state is HomeLoaded) {
-                    return SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Container(
-                            width: 300,
-                            height: 400,
-                            child: Image.network('${state.banners.toString()}'),
-                          ),
-                        ],
-                      ),
-                    );
+                    return Column(children: [_showBanner(state.banners)]);
                   }
                   return SizedBox.shrink();
                 },
@@ -98,8 +92,34 @@ Widget _buildInputField() {
   );
 }
 
-// Widget _showBanner(){
-//       return Container(
-//         child: B,
-//     );
-// }
+Widget _showBanner(List<BannerPoster> banner) {
+  return CarouselSlider(
+    items: List.generate(banner.length, (index) {
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Image.network(banner[index].imageUrl),
+        ),
+      );
+    }),
+    options: CarouselOptions(
+      height: 180,
+      aspectRatio: 16 / 8,
+      viewportFraction: 0.9,
+      initialPage: 0,
+      enableInfiniteScroll: true,
+      reverse: false,
+      autoPlay: true,
+      autoPlayInterval: Duration(seconds: 3),
+      autoPlayAnimationDuration: Duration(milliseconds: 800),
+      //autoPlayCurve: Curves.fastOutSlowIn,
+      enlargeCenterPage: true,
+      enlargeFactor: 0.3,
+      //onPageChanged: callbackFunction,
+      scrollDirection: Axis.horizontal,
+    ),
+  );
+}

@@ -7,3 +7,4 @@ class BannerModel extends BannerPoster {
     return BannerModel(id: json['id'], imageUrl: json['imageUrl']);
   }
 }
+ 

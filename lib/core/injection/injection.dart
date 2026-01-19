@@ -5,7 +5,7 @@ import 'package:ecomerce_app/feature/auth/domain/usecase/login_usecase.dart';
 import 'package:ecomerce_app/feature/auth/domain/usecase/register_usecase.dart';
 import 'package:ecomerce_app/feature/auth/domain/usecase/reset_password_usecase.dart';
 import 'package:ecomerce_app/feature/auth/presentation/bloc/bloc.dart';
-import 'package:ecomerce_app/feature/home/data/remote_datasource/home_remote_datasource.dart';
+import 'package:ecomerce_app/feature/home/data/datasource/home_remote_datasource.dart';
 import 'package:ecomerce_app/feature/home/data/repository_Impl/home_repo_Impl.dart';
 import 'package:ecomerce_app/feature/home/domain/repository/home_repo.dart';
 import 'package:ecomerce_app/feature/home/domain/usecase/get_banner_usecase.dart';
