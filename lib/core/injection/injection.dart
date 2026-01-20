@@ -9,6 +9,7 @@ import 'package:ecomerce_app/feature/home/data/datasource/home_remote_datasource
 import 'package:ecomerce_app/feature/home/data/repository_Impl/home_repo_Impl.dart';
 import 'package:ecomerce_app/feature/home/domain/repository/home_repo.dart';
 import 'package:ecomerce_app/feature/home/domain/usecase/get_banner_usecase.dart';
+import 'package:ecomerce_app/feature/home/domain/usecase/get_feed_usecase.dart';
 import 'package:ecomerce_app/feature/home/presentation/bloc/home_bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -17,7 +18,7 @@ final sl = GetIt.instance;
 Future<void> init() async {
   //Bloc
   sl.registerFactory(() => AuthBloc(sl(), sl(), sl()));
-  sl.registerFactory(() => HomeBloc(sl()));
+  sl.registerFactory(() => HomeBloc(sl(),sl()));
 
   //UseCase
   sl.registerLazySingleton(() => LoginUsecase(sl()));
@@ -25,6 +26,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => ResetPasswordUsecase(repository: sl()));
   //Home
   sl.registerLazySingleton(() => GetBannersUseCase(repo: sl()));
+  sl.registerLazySingleton(() => GetFeedUsecase(repo: sl()));
 
   //Repository (interface+Impl)
   sl.registerLazySingleton<AuthRepository>(() => RepositoryImpl(sl()));

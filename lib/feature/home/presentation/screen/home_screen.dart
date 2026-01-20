@@ -60,11 +60,66 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   }
                   if (state is HomeLoaded) {
-                    return Column(children: [_showBanner(state.banners)]);
+                    return Column(
+                      children: [
+                        _showBanner(state.banners),
+                        Row(
+                          children: [
+                            Text(
+                              'Exclusive Offer',
+                              style: AppTextStyle.heading2,
+                            ),
+                            Spacer(),
+                            TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                'See All',
+                                style: AppTextStyle.title.copyWith(
+                                  color: Colors.blue,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              for(var i=0;i<state.feeds.length;i++)
+                              Container(
+                                width: 200,
+                                height: 300,
+                                margin: EdgeInsets.only(right: 24),
+                                decoration: BoxDecoration(
+                                  color: AppColors.background,
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(width: 1,color: AppColors.borderColor)
+                                ),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      width: double.infinity,
+                                      height: 134,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12)
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: Image(image: NetworkImage(state.feeds[i].imageUrl),fit: BoxFit.fill,)),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    );
                   }
                   return SizedBox.shrink();
                 },
               ),
+              SizedBox(height: 24),
             ],
           ),
         ),
@@ -96,9 +151,7 @@ Widget _showBanner(List<BannerPoster> banner) {
   return CarouselSlider(
     items: List.generate(banner.length, (index) {
       return Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12),
           child: Image.network(banner[index].imageUrl),

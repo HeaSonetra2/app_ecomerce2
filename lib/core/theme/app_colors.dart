@@ -10,4 +10,5 @@ class AppColors {
   static Color text_color = Color(0xFF181725);
   static Color text_color_title = Color(0xFF4C4F4D);
   static Color text_color_grey = Color(0xFF7C7C7C);
+  static Color borderColor = Color.fromARGB(130, 211, 210, 210);
 }

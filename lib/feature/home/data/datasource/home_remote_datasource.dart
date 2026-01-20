@@ -31,6 +31,14 @@ class HomeRemoteDatasource {
         'price':5.5,
         'imageUrl':'https://img.freepik.com/free-psd/close-up-delicious-apple_23-2151868338.jpg',
       },
+      {
+        'id':'3',
+        'name':'Apple',
+        'qty':7,
+        'type':'pcs',
+        'price':5.5,
+        'imageUrl':'https://img.freepik.com/free-psd/close-up-delicious-apple_23-2151868338.jpg',
+      },
     ];
   }
 }
