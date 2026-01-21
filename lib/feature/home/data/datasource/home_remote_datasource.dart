@@ -3,7 +3,7 @@ class HomeRemoteDatasource {
     await Future.delayed(Duration(seconds: 2));
     //mock data
     return [
-      {'id': '1', 'imageUrl': 'https://www.goselfdrive.co.in/images/car3.jpg'},
+      {'id': '1', 'imageUrl': 'https://www.goselfdrive.co.in/images/car3.j'},
       {
         'id': '2',
         'imageUrl':
