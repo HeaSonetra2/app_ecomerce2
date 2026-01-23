@@ -2,9 +2,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecomerce_app/core/theme/app_colors.dart';
 import 'package:ecomerce_app/core/theme/text_style.dart';
 import 'package:ecomerce_app/feature/home/domain/entities/banner.dart';
+import 'package:ecomerce_app/feature/home/domain/entities/product.dart';
 import 'package:ecomerce_app/feature/home/presentation/bloc/home_bloc.dart';
 import 'package:ecomerce_app/feature/home/presentation/bloc/home_event.dart';
 import 'package:ecomerce_app/feature/home/presentation/bloc/home_state.dart';
+import 'package:ecomerce_app/feature/home/presentation/screen/detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -101,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Row(
                                 children: List.generate(
                                   state.feeds.length,
-                                  (i) => _buildCardProduct(state, i),
+                                  (i) => _buildCardProduct(context,state.feeds[i]),
                                 ),
                               ),
                             ),
@@ -127,8 +129,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               scrollDirection: Axis.horizontal,
                               child: Row(
                                 children: List.generate(
-                                  state.feeds.length,
-                                  (i) => _buildCardProduct(state, i),
+                                  state.bestSeller.length,
+                                  (i) => _buildCardProduct(context,state.bestSeller[i]),
                                 ),
                               ),
                             ),
@@ -149,70 +151,78 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-Widget _buildCardProduct(HomeLoaded state, int i) {
-  return Container(
-    width: 200,
-    height: 280,
-    margin: EdgeInsets.only(right: 24),
-    padding: EdgeInsets.only(left: 14, right: 14),
-    decoration: BoxDecoration(
-      color: AppColors.background,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(width: 1, color: AppColors.borderColor),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: double.infinity,
-          height: 134,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Image(
-              image: NetworkImage(state.feeds[i].imageUrl),
-              fit: BoxFit.fill,
+Widget _buildCardProduct(BuildContext context, Product item) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => DetailScreen(productId: item.id)),
+      );
+    },
+    child: Container(
+      width: 200,
+      height: 280,
+      margin: EdgeInsets.only(right: 24),
+      padding: EdgeInsets.only(left: 14, right: 14),
+      decoration: BoxDecoration(
+        color: AppColors.background,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(width: 1, color: AppColors.borderColor),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: double.infinity,
+            height: 134,
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image(
+                image: NetworkImage(item.imageUrl),
+                fit: BoxFit.fill,
+              ),
             ),
           ),
-        ),
 
-        Text(
-          state.feeds[i].name,
-          style: AppTextStyle.heading3.copyWith(fontWeight: FontWeight.w600),
-        ),
-        Row(
-          children: [
-            Text(
-              '${state.feeds[i].qty}',
-              style: AppTextStyle.heading3.copyWith(
-                fontWeight: FontWeight.w600,
+          Text(
+            item.name,
+            style: AppTextStyle.heading3.copyWith(fontWeight: FontWeight.w600),
+          ),
+          Row(
+            children: [
+              Text(
+                '${item.qty}',
+                style: AppTextStyle.heading3.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            ),
-            Text(state.feeds[i].type),
-          ],
-        ),
-        SizedBox(height: 24),
-        Row(
-          children: [
-            Text(
-              '${state.feeds[i].price}\$',
-              style: AppTextStyle.heading3.copyWith(
-                fontWeight: FontWeight.w600,
+              Text(item.type),
+            ],
+          ),
+          SizedBox(height: 24),
+          Row(
+            children: [
+              Text(
+                '${item.price}\$',
+                style: AppTextStyle.heading3.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            ),
-            Spacer(),
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.circular(12),
+              Spacer(),
+              Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: AppColors.primary,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Center(child: Icon(Icons.add, color: Colors.white)),
               ),
-              child: Center(child: Icon(Icons.add, color: Colors.white)),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     ),
   );
 }

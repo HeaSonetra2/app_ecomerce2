@@ -1,4 +1,4 @@
-class Feed {
+class Product {
   final String id;
   final String name;
   final int qty;
@@ -6,7 +6,7 @@ class Feed {
   final double price;
   final String imageUrl;
 
-  Feed({
+  Product({
     required this.id,
     required this.name,
     required this.qty,

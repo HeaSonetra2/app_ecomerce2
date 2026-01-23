@@ -1,6 +1,6 @@
-import 'package:ecomerce_app/feature/home/domain/entities/feed.dart';
+import 'package:ecomerce_app/feature/home/domain/entities/product.dart';
 
-class FeedModel extends Feed {
+class FeedModel extends Product {
   FeedModel({
     required super.id,
     required super.name,
