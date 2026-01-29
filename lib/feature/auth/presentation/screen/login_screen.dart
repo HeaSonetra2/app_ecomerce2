@@ -22,7 +22,7 @@ class LoginScreen extends StatelessWidget {
               if (state is AuthSuccess) {
                 ScaffoldMessenger.of(
                   context,
-                ).showSnackBar(SnackBar(content: Text('Welcome To Homepage')));
+                ).showSnackBar(SnackBar(content: Text(state.name)));
               }
               if (state is AuthError) {
                 ScaffoldMessenger.of(

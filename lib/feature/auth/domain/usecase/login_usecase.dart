@@ -6,7 +6,7 @@ class LoginUsecase {
 
   LoginUsecase(this.repository);
 
-  Future<User> call(String phone, String password) {
+  Future<String> call(String phone, String password) {
     return repository.login(phone: phone, password: password);
   }
 }

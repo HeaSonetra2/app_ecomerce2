@@ -18,8 +18,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoading());
 
       try {
-        final user = await loginUsecase(event.phone, event.password);
-        emit(AuthSuccess(name: user.name));
+        final token = await loginUsecase(event.phone, event.password);
+        emit(AuthSuccess(name: token));
       } catch (e) {
         emit(AuthError(message: e.toString()));
       }

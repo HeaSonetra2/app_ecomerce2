@@ -49,7 +49,7 @@ class OnboadingScreen extends StatelessWidget {
                 // Navigator.pushNamed(context, AppRoute.login);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => HomeScreen()),
+                  MaterialPageRoute(builder: (_) => LoginScreen()),
                 );
               },
               child: Container(

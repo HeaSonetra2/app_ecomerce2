@@ -2,6 +2,7 @@ class ProductDetail {
   final String id;
   final String name;
   final int qty;
+  final int stockQty;
   final String type;
   final double price;
   final String desc;
@@ -14,6 +15,7 @@ class ProductDetail {
     required this.id,
     required this.name,
     required this.qty,
+    required this.stockQty,
     required this.type,
     required this.price,
     required this.desc,

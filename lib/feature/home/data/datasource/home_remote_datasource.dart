@@ -106,14 +106,15 @@ class HomeRemoteDatasource {
       'id': Id,
       'name': 'Banana',
       'qty': 7,
+      'stock_qty': 7,
       'type': 'pcs',
       'price': 5.5,
-      'desc': 'Hello',
-      'isFav': false,
+      'desc': 'Hellovgbhjknmjhvggggggggggggggghhhhhfcgnnnnnnnnnnnnnnt7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+      'isFav': true,
       'nutrition': 5.5,
       'review': 4.0,
       'imageUrl':
-          'https://i5.walmartimages.com/asr/a134f2a1-2bb0-4e5c-a594-f84b63ab5928.22241f295458186b2ba0e4ed7d460d52.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF',
+          'https://www.dole.com/sites/default/files/styles/512w384h-80/public/media/orange-wissen.jpg?itok=i9A3Dx0Q-22EZBL72',
     };
   }
 }

@@ -1,3 +1,4 @@
+import 'package:ecomerce_app/core/network/api_client.dart';
 import 'package:ecomerce_app/feature/auth/data/datasource/auth_remote_datasource.dart';
 import 'package:ecomerce_app/feature/auth/data/repositories/repository_Impl.dart';
 import 'package:ecomerce_app/feature/auth/domain/repositories/auth_repository.dart';
@@ -20,7 +21,8 @@ final sl = GetIt.instance;
 Future<void> init() async {
   //Bloc
   sl.registerFactory(() => AuthBloc(sl(), sl(), sl()));
-  sl.registerFactory(() => HomeBloc(sl(),sl(),sl(),sl()));
+  sl.registerFactory(() => HomeBloc(sl(), sl(), sl(), sl()));
+  sl.registerFactory(() => ApiClient());
 
   //UseCase
   sl.registerLazySingleton(() => LoginUsecase(sl()));
@@ -36,6 +38,6 @@ Future<void> init() async {
   sl.registerLazySingleton<AuthRepository>(() => RepositoryImpl(sl()));
   sl.registerLazySingleton<HomeRepo>(() => HomeRepoImpl(sl()));
 
-  sl.registerLazySingleton(() => AuthRemoteDatasource());
+  sl.registerLazySingleton(() => AuthRemoteDatasource(sl()));
   sl.registerLazySingleton(() => HomeRemoteDatasource());
 }
