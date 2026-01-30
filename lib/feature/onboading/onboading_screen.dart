@@ -1,12 +1,35 @@
-import 'package:ecomerce_app/core/routing/app_route.dart';
+import 'package:ecomerce_app/core/storage/token_storage.dart';
 import 'package:ecomerce_app/core/theme/app_colors.dart';
 import 'package:ecomerce_app/core/theme/text_style.dart';
 import 'package:ecomerce_app/feature/auth/presentation/screen/login_screen.dart';
 import 'package:ecomerce_app/feature/home/presentation/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 
-class OnboadingScreen extends StatelessWidget {
+class OnboadingScreen extends StatefulWidget {
   const OnboadingScreen({super.key});
+
+  @override
+  State<OnboadingScreen> createState() => _OnboadingScreenState();
+}
+
+class _OnboadingScreenState extends State<OnboadingScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _checkAuth();
+  }
+
+  Future<void> _checkAuth() async {
+    final tokenStorage = TokenStorage();
+    final token = await tokenStorage.getToken();
+
+    if (token != null && token.isNotEmpty) {
+      Navigator.push(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+    } else {
+      Navigator.push(context, MaterialPageRoute(builder: (_) => LoginScreen()));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

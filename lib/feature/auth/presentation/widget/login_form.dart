@@ -3,6 +3,7 @@ import 'package:ecomerce_app/core/theme/text_style.dart';
 import 'package:ecomerce_app/feature/auth/presentation/bloc/bloc.dart';
 import 'package:ecomerce_app/feature/auth/presentation/bloc/event.dart';
 import 'package:ecomerce_app/feature/auth/presentation/bloc/state.dart';
+import 'package:ecomerce_app/feature/home/presentation/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -72,6 +73,7 @@ class _LoginFormState extends State<LoginForm> {
 
                 return GestureDetector(
                   onTap: () {
+                
                     if (_formKey.currentState!.validate()) {
                       context.read<AuthBloc>().add(
                         LoginEvent(

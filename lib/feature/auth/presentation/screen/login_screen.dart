@@ -3,6 +3,7 @@ import 'package:ecomerce_app/feature/auth/presentation/bloc/state.dart';
 import 'package:ecomerce_app/feature/auth/presentation/screen/register_screen.dart';
 import 'package:ecomerce_app/feature/auth/presentation/screen/reset_password_screen.dart';
 import 'package:ecomerce_app/feature/auth/presentation/widget/login_form.dart';
+import 'package:ecomerce_app/feature/home/presentation/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,14 +21,30 @@ class LoginScreen extends StatelessWidget {
           BlocListener<AuthBloc, AuthState>(
             listener: (context, state) {
               if (state is AuthSuccess) {
-                ScaffoldMessenger.of(
+                Navigator.push(
                   context,
-                ).showSnackBar(SnackBar(content: Text(state.name)));
+                  MaterialPageRoute(builder: (_) => HomeScreen()),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'Success',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    backgroundColor: Colors.green,
+                  ),
+                );
               }
               if (state is AuthError) {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text('Error')));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'Invalid phone or password',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    backgroundColor: Colors.red,
+                  ),
+                );
               }
             },
             child: LoginForm(),
