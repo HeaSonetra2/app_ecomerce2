@@ -17,18 +17,28 @@ class _OnboadingScreenState extends State<OnboadingScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _checkAuth();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkAuth();
+    });
   }
 
   Future<void> _checkAuth() async {
     final tokenStorage = TokenStorage();
     final token = await tokenStorage.getToken();
 
-    if (token != null && token.isNotEmpty) {
-      Navigator.push(context, MaterialPageRoute(builder: (_) => HomeScreen()));
-    } else {
-      Navigator.push(context, MaterialPageRoute(builder: (_) => LoginScreen()));
-    }
+    print('===============================$token');
+   
+  if (token != null && token.isNotEmpty) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => HomeScreen()),
+    );
+  } else {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => LoginScreen()),
+    );
+  }
   }
 
   @override

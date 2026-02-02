@@ -1,4 +1,5 @@
 import 'package:ecomerce_app/core/network/api_client.dart';
+import 'package:ecomerce_app/core/storage/token_storage.dart';
 import 'package:ecomerce_app/feature/auth/data/datasource/auth_remote_datasource.dart';
 import 'package:ecomerce_app/feature/auth/data/repositories/repository_Impl.dart';
 import 'package:ecomerce_app/feature/auth/domain/repositories/auth_repository.dart';
@@ -20,10 +21,11 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   //Bloc
-  sl.registerFactory(() => AuthBloc(sl(), sl(), sl()));
+  sl.registerFactory(() => AuthBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory(() => HomeBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory(() => ApiClient());
-
+  sl.registerLazySingleton<TokenStorage>(() => TokenStorage());
+ 
   //UseCase
   sl.registerLazySingleton(() => LoginUsecase(sl()));
   sl.registerLazySingleton(() => RegisterUsecase(sl()));

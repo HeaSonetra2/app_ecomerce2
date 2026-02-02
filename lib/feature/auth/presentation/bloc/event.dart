@@ -57,3 +57,5 @@ class ForgotPasswordEvent extends AuthEvent {
 
   ForgotPasswordEvent({required this.phone});
 }
+
+class CheckAuthEvent extends AuthEvent {}

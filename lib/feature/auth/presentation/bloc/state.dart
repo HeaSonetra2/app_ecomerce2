@@ -29,3 +29,6 @@ class PasswordSuccess extends AuthState {
 
   PasswordSuccess({required this.message});
 }
+
+class AuthAuthenticated extends AuthState{}
+class AuthUnauthenticated extends AuthState{}

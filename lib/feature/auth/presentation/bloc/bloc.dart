@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:ecomerce_app/core/storage/token_storage.dart';
 import 'package:ecomerce_app/feature/auth/domain/usecase/login_usecase.dart';
 import 'package:ecomerce_app/feature/auth/domain/usecase/register_usecase.dart';
 import 'package:ecomerce_app/feature/auth/domain/usecase/reset_password_usecase.dart';
@@ -11,14 +12,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUsecase loginUsecase;
   final RegisterUsecase registerUsecase;
   final ResetPasswordUsecase resetPasswordUsecase;
+  final TokenStorage tokenStorage;
 
-  AuthBloc(this.loginUsecase, this.registerUsecase, this.resetPasswordUsecase)
-    : super(AuthInitial()) {
+  AuthBloc(
+    this.loginUsecase,
+    this.registerUsecase,
+    this.resetPasswordUsecase,
+    this.tokenStorage,
+  ) : super(AuthInitial()) {
     on<LoginEvent>((event, emit) async {
       emit(AuthLoading());
 
       try {
         final token = await loginUsecase(event.phone, event.password);
+        print('=================$token========================');
+        await tokenStorage.saveToken(token);
         emit(AuthSuccess(name: token));
       } catch (e) {
         emit(AuthError(message: e.toString()));
@@ -73,7 +81,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         emit(OtpSendForResetSuccess());
       } catch (e) {
-         emit(AuthError(message: 'Invalid OTP'));
+        emit(AuthError(message: 'Invalid OTP'));
       }
     });
 
@@ -95,6 +103,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(PasswordSuccess(message: 'Welcome To Home'));
       } catch (e) {
         emit(AuthError(message: e.toString()));
+      }
+    });
+
+    on<CheckAuthEvent>((event, emit) async {
+      final token = await tokenStorage.getToken();
+
+      if (token != null && token.isNotEmpty) {
+        emit(AuthAuthenticated());
+      } else {
+        emit(AuthUnauthenticated());
       }
     });
   }
