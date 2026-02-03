@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ecomerce_app/core/routing/app_route.dart';
 import 'package:ecomerce_app/core/theme/app_colors.dart';
 import 'package:ecomerce_app/core/theme/text_style.dart';
 import 'package:ecomerce_app/feature/home/domain/entities/banner.dart';
@@ -103,7 +104,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Row(
                                 children: List.generate(
                                   state.feeds.length,
-                                  (i) => _buildCardProduct(context,state.feeds[i]),
+                                  (i) => _buildCardProduct(
+                                    context,
+                                    state.feeds[i],
+                                  ),
                                 ),
                               ),
                             ),
@@ -130,7 +134,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Row(
                                 children: List.generate(
                                   state.bestSeller.length,
-                                  (i) => _buildCardProduct(context,state.bestSeller[i]),
+                                  (i) => _buildCardProduct(
+                                    context,
+                                    state.bestSeller[i],
+                                  ),
                                 ),
                               ),
                             ),
@@ -146,6 +153,33 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (value) {
+          switch (value) {
+            case 0:
+              Navigator.pushNamed(context, AppRoute.home);
+            case 1:
+              Navigator.pushNamed(context, AppRoute.home);
+            case 2:
+              Navigator.pushNamed(context, AppRoute.home);
+            case 3:
+              Navigator.pushNamed(context, AppRoute.home);
+            case 4:
+              Navigator.pushNamed(context, AppRoute.account);
+          }
+        },
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favorite',
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.shop), label: 'Cart'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Acount'),
+        ],
       ),
     );
   }
@@ -246,33 +280,6 @@ Widget _buildInputField() {
   );
 }
 
-// Widget _showBanner(List<BannerPoster> banner) {
-//   return CarouselSlider(
-//     items: List.generate(banner.length, (index) {
-//       return Container(
-//         decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
-//         child: ClipRRect(
-//           borderRadius: BorderRadius.circular(12),
-//           child: Image.network(banner[index].imageUrl),
-//         ),
-//       );
-//     }),
-//     options: CarouselOptions(
-//       height: 180,
-//       aspectRatio: 16 / 8,
-//       viewportFraction: 1,
-//       initialPage: 0,
-//       enableInfiniteScroll: true,
-//       reverse: false,
-//       autoPlay: true,
-//       autoPlayInterval: Duration(seconds: 3),
-//       autoPlayAnimationDuration: Duration(milliseconds: 800),
-//       enlargeCenterPage: false,
-//       enlargeFactor: 0.3,
-//       scrollDirection: Axis.horizontal,
-//     ),
-//   );
-// }
 Widget _showBanner(List<BannerPoster> banner) {
   return CarouselSlider(
     items: banner.map((item) {
