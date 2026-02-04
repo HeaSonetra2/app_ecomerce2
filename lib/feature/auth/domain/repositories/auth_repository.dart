@@ -1,3 +1,4 @@
+import 'package:ecomerce_app/feature/auth/data/model/otp_sent_model.dart';
 import 'package:ecomerce_app/feature/auth/domain/entities/user.dart';
 
 abstract class AuthRepository {
@@ -9,7 +10,7 @@ abstract class AuthRepository {
     required String name,
   });
 
-  Future<void> sendOtp(String phone);
+  Future<OtpSentModel> sendOtp(String phone);
   Future<bool> verifyOtp(String phone, String Otp);
 
   Future<void> resetPassword(String phone, String password);

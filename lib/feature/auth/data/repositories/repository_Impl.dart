@@ -1,4 +1,5 @@
 import 'package:ecomerce_app/feature/auth/data/datasource/auth_remote_datasource.dart';
+import 'package:ecomerce_app/feature/auth/data/model/otp_sent_model.dart';
 import 'package:ecomerce_app/feature/auth/data/model/user_model.dart';
 import 'package:ecomerce_app/feature/auth/domain/entities/user.dart';
 import 'package:ecomerce_app/feature/auth/domain/repositories/auth_repository.dart';
@@ -28,7 +29,10 @@ class RepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> sendOtp(String phone) async {} //Logic SMS
+  Future<OtpSentModel> sendOtp(String phone) async {
+    final json = await remote.sendRequestOTP(phone);
+    return OtpSentModel.fromJson(json);
+  } //Logic SMS
 
   @override
   Future<bool> verifyOtp(String phone, String Otp) async => Otp == '1234';

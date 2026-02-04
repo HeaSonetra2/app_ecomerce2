@@ -23,6 +23,25 @@ class AuthRemoteDatasource {
     }
   }
 
+  Future<Map<String,dynamic>> sendRequestOTP(
+    String phone,
+  ) async {
+    try{
+      final respone = await apiClient.dio.post(
+        '/auth/register/send-otp',
+        data: {"phoneNumber": phone},
+      );
+       if(respone.data['success']== true){
+         return respone.data;
+       }else{
+        throw Exception(respone.data['message']);
+       }
+
+    }on DioException catch (e) {
+      throw Exception(e.response?.data['message'] ?? 'Login failed');
+    }
+  }
+
   Future<Map<String, dynamic>> register(
     String phone,
     String password,

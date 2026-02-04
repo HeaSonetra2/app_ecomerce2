@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:ecomerce_app/core/storage/token_storage.dart';
 import 'package:ecomerce_app/feature/auth/domain/usecase/login_usecase.dart';
+import 'package:ecomerce_app/feature/auth/domain/usecase/otp_send_usecase.dart';
 import 'package:ecomerce_app/feature/auth/domain/usecase/register_usecase.dart';
 import 'package:ecomerce_app/feature/auth/domain/usecase/reset_password_usecase.dart';
 import 'package:ecomerce_app/feature/auth/presentation/bloc/event.dart';
@@ -13,12 +14,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final RegisterUsecase registerUsecase;
   final ResetPasswordUsecase resetPasswordUsecase;
   final TokenStorage tokenStorage;
+  final OtpSendUsecase otpSendUsecase;
 
   AuthBloc(
     this.loginUsecase,
     this.registerUsecase,
     this.resetPasswordUsecase,
     this.tokenStorage,
+    this.otpSendUsecase,
   ) : super(AuthInitial()) {
     on<LoginEvent>((event, emit) async {
       emit(AuthLoading());
@@ -36,8 +39,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SendOtpEvent>((event, emit) async {
       emit(AuthLoading());
 
-      await Future.delayed(Duration(seconds: 2));
-      emit(OtpSentSuccess());
+      try {
+        final data = await otpSendUsecase(event.phone);
+        print('=======================$data');
+        emit(OtpSentSuccess());
+      } catch (e) {
+        emit(AuthError(message: e.toString()));
+      }
     });
 
     on<VerifyOtpEvent>((event, emit) async {
