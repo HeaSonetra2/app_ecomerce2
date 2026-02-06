@@ -42,15 +42,62 @@ class AuthRemoteDatasource {
     }
   }
 
+  Future<Map<String, dynamic>> verifyOTP(
+    String phone,
+    String otp,
+  ) async {
+    try{
+      final respone = await apiClient.dio.post(
+        '/auth/register/verify-otp',
+        data: {
+          "phoneNumber": phone,
+          "otp":otp
+        },
+      );
+       if(respone.data['success']== true){
+         return respone.data;
+       }else{
+        throw Exception(respone.data['message']);
+       }
+    }on DioException catch (e){
+      throw Exception(e.response?.data['message'] ?? 'Login failed');
+    }
+  }
+
   Future<Map<String, dynamic>> register(
     String phone,
+    String otp,
     String password,
+    String confirm,
     String name,
+    String gender,
+    String dob,
+    
   ) async {
-    await Future.delayed(const Duration(seconds: 1));
-
-    return {"id": '1', "phone": "0987654321", "name": "Netra"};
+    try{
+      final respone = await apiClient.dio.post(
+        '/auth/register',
+        data: {
+          "phoneNumber": phone,
+          "otp":otp,
+          "password":password,
+          "confirmPassword":confirm,
+          "name":name,
+          "gender":gender,
+          "dob":dob
+        },
+      );
+       if(respone.data['success']== true){
+         return respone.data;
+       }else{
+        throw Exception(respone.data['message']);
+       }
+    }on DioException catch (e){
+      throw Exception(e.response?.data['message'] ?? 'Login failed');
+    }
   }
+
+
 
   Future<void> resetPassword(String phone, String newPassword) async {
     await Future.delayed(const Duration(seconds: 1));

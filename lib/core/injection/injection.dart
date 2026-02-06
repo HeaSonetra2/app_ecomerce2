@@ -8,6 +8,7 @@ import 'package:ecomerce_app/feature/auth/domain/usecase/login_usecase.dart';
 import 'package:ecomerce_app/feature/auth/domain/usecase/otp_send_usecase.dart';
 import 'package:ecomerce_app/feature/auth/domain/usecase/register_usecase.dart';
 import 'package:ecomerce_app/feature/auth/domain/usecase/reset_password_usecase.dart';
+import 'package:ecomerce_app/feature/auth/domain/usecase/verify_otp_usecase.dart';
 import 'package:ecomerce_app/feature/auth/presentation/bloc/bloc.dart';
 import 'package:ecomerce_app/feature/home/data/datasource/home_remote_datasource.dart';
 import 'package:ecomerce_app/feature/home/data/repository_Impl/home_repo_Impl.dart';
@@ -23,7 +24,7 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   //Bloc
-  sl.registerFactory(() => AuthBloc(sl(), sl(), sl(), sl(),sl()));
+  sl.registerFactory(() => AuthBloc(sl(), sl(), sl(), sl(),sl(),sl()));
   sl.registerFactory(() => HomeBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory(() => ApiClient());
   sl.registerLazySingleton<TokenStorage>(() => TokenStorage());
@@ -31,6 +32,7 @@ Future<void> init() async {
   //UseCase
   sl.registerLazySingleton(() => LoginUsecase(sl()));
   sl.registerLazySingleton(() => OtpSendUsecase(sl()));
+  sl.registerLazySingleton(() => VerifyOtpUsecase(sl()));
   
   sl.registerLazySingleton(() => RegisterUsecase(sl()));
   sl.registerLazySingleton(() => ResetPasswordUsecase(repository: sl()));

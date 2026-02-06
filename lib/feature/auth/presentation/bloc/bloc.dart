@@ -5,6 +5,7 @@ import 'package:ecomerce_app/feature/auth/domain/usecase/login_usecase.dart';
 import 'package:ecomerce_app/feature/auth/domain/usecase/otp_send_usecase.dart';
 import 'package:ecomerce_app/feature/auth/domain/usecase/register_usecase.dart';
 import 'package:ecomerce_app/feature/auth/domain/usecase/reset_password_usecase.dart';
+import 'package:ecomerce_app/feature/auth/domain/usecase/verify_otp_usecase.dart';
 import 'package:ecomerce_app/feature/auth/presentation/bloc/event.dart';
 import 'package:ecomerce_app/feature/auth/presentation/bloc/state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,13 +16,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final ResetPasswordUsecase resetPasswordUsecase;
   final TokenStorage tokenStorage;
   final OtpSendUsecase otpSendUsecase;
+  final VerifyOtpUsecase verifyOtpUsecase;
 
   AuthBloc(
     this.loginUsecase,
     this.registerUsecase,
     this.resetPasswordUsecase,
     this.tokenStorage,
-    this.otpSendUsecase,
+    this.otpSendUsecase, this.verifyOtpUsecase,
   ) : super(AuthInitial()) {
     on<LoginEvent>((event, emit) async {
       emit(AuthLoading());
@@ -49,29 +51,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<VerifyOtpEvent>((event, emit) async {
-      emit(AuthLoading());
-
-      if (event.otp == '1234') {
-        //Mock Otp
-        emit(OtpVerifySuccess());
-      } else {
-        emit(AuthError(message: 'Invalid OTP'));
+       try{
+        final data= await verifyOtpUsecase(event.phone,event.otp);
+        emit(OtpVerifySuccess(message: data.message));
+       }catch (e) {
+        emit(AuthError(message: 'OTP not match'));
       }
     });
 
-    on<CompleteRegisterEvent>((event, emit) async {
-      emit(AuthLoading());
-      try {
-        final user = await registerUsecase(
-          event.phone,
-          event.password,
-          event.name,
-        );
-        emit(AuthSuccess(name: user.name));
-      } catch (e) {
-        emit(AuthError(message: e.toString()));
-      }
-    });
+    // on<CompleteRegisterEvent>((event, emit) async {
+    //   emit(AuthLoading());
+    //   try {
+    //     final user = await registerUsecase(
+    //       event.phone,
+    //       event.password,
+    //       event.name,
+    //     );
+    //     emit(AuthSuccess(name: user.name));
+    //   } catch (e) {
+    //     emit(AuthError(message: e.toString()));
+    //   }
+    // });
 
     on<VerifyOtpForResetEvent>((event, emit) async {
       emit(AuthLoading());

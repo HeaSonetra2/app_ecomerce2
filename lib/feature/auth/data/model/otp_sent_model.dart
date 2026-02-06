@@ -1,13 +1,9 @@
 class OtpSentModel {
-  final String success;
+  final bool success;
   final String message;
-  final String data;
+  final dynamic data;
 
-  OtpSentModel({
-    required this.success,
-    required this.message,
-    required this.data,
-  });
+  OtpSentModel({required this.success, required this.message, this.data});
 
   factory OtpSentModel.fromJson(Map<String, dynamic> json) {
     return OtpSentModel(

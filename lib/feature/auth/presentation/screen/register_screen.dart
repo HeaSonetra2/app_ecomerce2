@@ -76,7 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ElevatedButton(
           onPressed: () {
             context.read<AuthBloc>().add(
-              VerifyOtpEvent(otp: _otpcontroller.text),
+              VerifyOtpEvent(_phonecontroller.text, _otpcontroller.text),
             );
           },
           child: Text('Next'),

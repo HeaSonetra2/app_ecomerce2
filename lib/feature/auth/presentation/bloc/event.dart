@@ -16,9 +16,10 @@ class SendOtpEvent extends AuthEvent {
 }
 
 class VerifyOtpEvent extends AuthEvent {
+  final String phone;
   final String otp;
 
-  VerifyOtpEvent({required this.otp});
+  VerifyOtpEvent(this.phone, this.otp);
 }
 
 class CompleteRegisterEvent extends AuthEvent {
@@ -45,7 +46,7 @@ class ResetPasswordEvent extends AuthEvent {
   });
 }
 
-class VerifyOtpForResetEvent extends AuthEvent{
+class VerifyOtpForResetEvent extends AuthEvent {
   final String phone;
   final String otp;
 

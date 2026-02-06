@@ -1,4 +1,3 @@
-import 'package:ecomerce_app/feature/auth/domain/entities/user.dart';
 import 'package:ecomerce_app/feature/auth/domain/repositories/auth_repository.dart';
 
 class LoginUsecase {

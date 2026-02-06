@@ -39,7 +39,7 @@ class LoginScreen extends StatelessWidget {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
-                      'Invalid phone or password',
+                      state.message,
                       style: TextStyle(color: Colors.white),
                     ),
                     backgroundColor: Colors.red,

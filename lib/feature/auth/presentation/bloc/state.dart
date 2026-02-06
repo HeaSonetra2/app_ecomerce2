@@ -18,7 +18,11 @@ class AuthError extends AuthState {
 
 class OtpSentSuccess extends AuthState {}
 
-class OtpVerifySuccess extends AuthState {}
+class OtpVerifySuccess extends AuthState {
+  final String message;
+
+  OtpVerifySuccess({required this.message});
+}
 
 class OtpSendForResetSuccess extends AuthState {}
 
@@ -30,5 +34,6 @@ class PasswordSuccess extends AuthState {
   PasswordSuccess({required this.message});
 }
 
-class AuthAuthenticated extends AuthState{}
-class AuthUnauthenticated extends AuthState{}
+class AuthAuthenticated extends AuthState {}
+
+class AuthUnauthenticated extends AuthState {}
