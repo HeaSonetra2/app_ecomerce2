@@ -23,7 +23,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     this.registerUsecase,
     this.resetPasswordUsecase,
     this.tokenStorage,
-    this.otpSendUsecase, this.verifyOtpUsecase,
+    this.otpSendUsecase,
+    this.verifyOtpUsecase,
   ) : super(AuthInitial()) {
     on<LoginEvent>((event, emit) async {
       emit(AuthLoading());
@@ -44,34 +45,38 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         final data = await otpSendUsecase(event.phone);
         print('=======================$data');
-        emit(OtpSentSuccess());
+        emit(OtpSentSuccess(otp: data.data));
       } catch (e) {
         emit(AuthError(message: e.toString()));
       }
     });
 
     on<VerifyOtpEvent>((event, emit) async {
-       try{
-        final data= await verifyOtpUsecase(event.phone,event.otp);
+      try {
+        final data = await verifyOtpUsecase(event.phone, event.otp);
         emit(OtpVerifySuccess(message: data.message));
-       }catch (e) {
+      } catch (e) {
         emit(AuthError(message: 'OTP not match'));
       }
     });
 
-    // on<CompleteRegisterEvent>((event, emit) async {
-    //   emit(AuthLoading());
-    //   try {
-    //     final user = await registerUsecase(
-    //       event.phone,
-    //       event.password,
-    //       event.name,
-    //     );
-    //     emit(AuthSuccess(name: user.name));
-    //   } catch (e) {
-    //     emit(AuthError(message: e.toString()));
-    //   }
-    // });
+    on<CompleteRegisterEvent>((event, emit) async {
+      emit(AuthLoading());
+      try {
+        final user = await registerUsecase(
+          event.phone,
+          event.otp,
+          event.password,
+          event.confirm,
+          event.name,
+          event.gender,
+          event.dob,
+        );
+        emit(RegisterSuccess(phone: user.data));
+      } catch (e) {
+        emit(AuthError(message: e.toString()));
+      }
+    });
 
     on<VerifyOtpForResetEvent>((event, emit) async {
       emit(AuthLoading());

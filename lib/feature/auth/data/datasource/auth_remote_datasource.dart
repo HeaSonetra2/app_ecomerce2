@@ -9,7 +9,7 @@ class AuthRemoteDatasource {
   Future<String> login(String phone, String password) async {
     try {
       final respone = await apiClient.dio.post(
-        '/auth/login',
+        '/api/auth/login',
         data: {"phoneNumber": phone, "password": password},
       );
 
@@ -28,7 +28,7 @@ class AuthRemoteDatasource {
   ) async {
     try{
       final respone = await apiClient.dio.post(
-        '/auth/register/send-otp',
+        '/api/auth/register/send-otp',
         data: {"phoneNumber": phone},
       );
        if(respone.data['success']== true){
@@ -48,7 +48,7 @@ class AuthRemoteDatasource {
   ) async {
     try{
       final respone = await apiClient.dio.post(
-        '/auth/register/verify-otp',
+        '/api/auth/register/verify-otp',
         data: {
           "phoneNumber": phone,
           "otp":otp
@@ -76,7 +76,7 @@ class AuthRemoteDatasource {
   ) async {
     try{
       final respone = await apiClient.dio.post(
-        '/auth/register',
+        '/api/auth/register',
         data: {
           "phoneNumber": phone,
           "otp":otp,

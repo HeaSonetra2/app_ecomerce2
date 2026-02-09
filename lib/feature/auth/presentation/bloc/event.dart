@@ -23,13 +23,17 @@ class VerifyOtpEvent extends AuthEvent {
 }
 
 class CompleteRegisterEvent extends AuthEvent {
-  final String phone, password, name;
+  final String phone;
+  final String otp;
+  final String password;
+  final String confirm;
+  final String name;
+  final String gender;
+  final String dob;
 
-  CompleteRegisterEvent({
-    required this.phone,
-    required this.password,
-    required this.name,
-  });
+  CompleteRegisterEvent({required this.phone, required this.otp, required this.password, required this.confirm, required this.name, required this.gender, required this.dob});
+
+
 }
 
 class ResetPasswordEvent extends AuthEvent {

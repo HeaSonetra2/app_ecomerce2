@@ -9,6 +9,11 @@ class AuthSuccess extends AuthState {
 
   AuthSuccess({required this.name});
 }
+class RegisterSuccess extends AuthState {
+  final String phone;
+
+  RegisterSuccess({required this.phone});
+}
 
 class AuthError extends AuthState {
   final String message;
@@ -16,7 +21,12 @@ class AuthError extends AuthState {
   AuthError({required this.message});
 }
 
-class OtpSentSuccess extends AuthState {}
+class OtpSentSuccess extends AuthState {
+  final String otp;
+
+  OtpSentSuccess({required this.otp});
+
+}
 
 class OtpVerifySuccess extends AuthState {
   final String message;

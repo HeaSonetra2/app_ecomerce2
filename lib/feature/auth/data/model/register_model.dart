@@ -9,7 +9,7 @@ class RegisterModel {
     return RegisterModel(
       success: json['success'],
       message: json['message'],
-      data: json['data'],
+      data: json['data']['phoneNumber'],
     );
   }
 }

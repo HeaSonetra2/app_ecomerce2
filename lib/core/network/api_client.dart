@@ -6,7 +6,7 @@ class ApiClient {
   ApiClient() {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'http://10.0.2.2:8080/api',
+        baseUrl: 'https://spring-boot-service-ecomerce-app.onrender.com',
         connectTimeout: Duration(seconds: 10),
         receiveTimeout: Duration(seconds: 10),
         headers: {'Content-Type': 'application/json'},
