@@ -1,6 +1,7 @@
 import 'package:ecomerce_app/feature/auth/presentation/bloc/bloc.dart';
 import 'package:ecomerce_app/feature/auth/presentation/bloc/event.dart';
 import 'package:ecomerce_app/feature/auth/presentation/bloc/state.dart';
+import 'package:ecomerce_app/feature/home/presentation/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,9 +39,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
             if (state is OtpVerifySuccess) _pageController.jumpToPage(2);
             if (state is RegisterSuccess) {
-              ScaffoldMessenger.of(
+              Navigator.push(
                 context,
-              ).showSnackBar(SnackBar(content: Text('Welcome: ${state.phone}')));
+                MaterialPageRoute(builder: (_) => HomeScreen()),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Welcome: ${state.phone}')),
+              );
             }
           },
           child: PageView(
@@ -122,7 +127,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             context.read<AuthBloc>().add(
               CompleteRegisterEvent(
                 phone: _phonecontroller.text,
-                otp:_otpcontroller.text,
+                otp: _otpcontroller.text,
                 password: _passcontroller.text,
                 confirm: _confirmcontroller.text,
                 name: _namecontroller.text,
