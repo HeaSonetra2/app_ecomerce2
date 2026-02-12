@@ -1,3 +1,4 @@
+import 'package:ecomerce_app/feature/home/data/models/home_data_model.dart';
 import 'package:ecomerce_app/feature/home/domain/entities/banner.dart';
 import 'package:ecomerce_app/feature/home/domain/entities/product.dart';
 import 'package:ecomerce_app/feature/home/domain/entities/product_detail.dart';
@@ -9,15 +10,10 @@ class HomeInitial extends HomeState {}
 class HomeLoading extends HomeState {}
 
 class HomeLoaded extends HomeState {
-  final List<BannerPoster> banners;
-  final List<Product> feeds;
-  final List<Product> bestSeller;
+  final HomeDataModel homeData;
 
-  HomeLoaded({
-    required this.banners,
-    required this.feeds,
-    required this.bestSeller,
-  });
+  HomeLoaded({required this.homeData});
+
 }
 
 class FeedDetailLoaded extends HomeState {

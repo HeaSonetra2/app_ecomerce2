@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecomerce_app/core/routing/app_route.dart';
 import 'package:ecomerce_app/core/theme/app_colors.dart';
 import 'package:ecomerce_app/core/theme/text_style.dart';
+import 'package:ecomerce_app/feature/home/data/models/home_data_model.dart';
+import 'package:ecomerce_app/feature/home/data/models/product_model.dart';
 import 'package:ecomerce_app/feature/home/domain/entities/banner.dart';
 import 'package:ecomerce_app/feature/home/domain/entities/product.dart';
 import 'package:ecomerce_app/feature/home/presentation/bloc/home_bloc.dart';
@@ -77,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (state is HomeLoaded) {
                         return Column(
                           children: [
-                            _showBanner(state.banners),
+                            _showBanner(state.homeData.banner),
                             SizedBox(height: 24),
 
                             Row(
@@ -103,10 +105,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               scrollDirection: Axis.horizontal,
                               child: Row(
                                 children: List.generate(
-                                  state.feeds.length,
+                                  state.homeData.feed.length,
                                   (i) => _buildCardProduct(
                                     context,
-                                    state.feeds[i],
+                                    state.homeData.feed[i],
                                   ),
                                 ),
                               ),
@@ -133,10 +135,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               scrollDirection: Axis.horizontal,
                               child: Row(
                                 children: List.generate(
-                                  state.bestSeller.length,
+                                  state.homeData.bestSeller.length,
                                   (i) => _buildCardProduct(
                                     context,
-                                    state.bestSeller[i],
+                                    state.homeData.bestSeller[i],
                                   ),
                                 ),
                               ),
@@ -185,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-Widget _buildCardProduct(BuildContext context, Product item) {
+Widget _buildCardProduct(BuildContext context, ProductModel item) {
   return GestureDetector(
     onTap: () {
       Navigator.push(
@@ -280,7 +282,7 @@ Widget _buildInputField() {
   );
 }
 
-Widget _showBanner(List<BannerPoster> banner) {
+Widget _showBanner(List banner) {
   return CarouselSlider(
     items: banner.map((item) {
       return ClipRRect(

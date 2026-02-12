@@ -13,10 +13,8 @@ import 'package:ecomerce_app/feature/auth/presentation/bloc/bloc.dart';
 import 'package:ecomerce_app/feature/home/data/datasource/home_remote_datasource.dart';
 import 'package:ecomerce_app/feature/home/data/repository_Impl/home_repo_Impl.dart';
 import 'package:ecomerce_app/feature/home/domain/repository/home_repo.dart';
-import 'package:ecomerce_app/feature/home/domain/usecase/get_banner_usecase.dart';
-import 'package:ecomerce_app/feature/home/domain/usecase/get_best_seller.dart';
 import 'package:ecomerce_app/feature/home/domain/usecase/get_feed_detail_usecase.dart';
-import 'package:ecomerce_app/feature/home/domain/usecase/get_feed_usecase.dart';
+import 'package:ecomerce_app/feature/home/domain/usecase/home_usecase.dart';
 import 'package:ecomerce_app/feature/home/presentation/bloc/home_bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -25,11 +23,12 @@ final sl = GetIt.instance;
 Future<void> init() async {
   //Bloc
   sl.registerFactory(() => AuthBloc(sl(), sl(), sl(), sl(),sl(),sl()));
-  sl.registerFactory(() => HomeBloc(sl(), sl(), sl(), sl()));
+  sl.registerFactory(() => HomeBloc(sl(),sl()));
   sl.registerFactory(() => ApiClient());
   sl.registerLazySingleton<TokenStorage>(() => TokenStorage());
  
   //UseCase
+  sl.registerLazySingleton(() => HomeUsecase(homeRepo: sl()));
   sl.registerLazySingleton(() => LoginUsecase(sl()));
   sl.registerLazySingleton(() => OtpSendUsecase(sl()));
   sl.registerLazySingleton(() => VerifyOtpUsecase(sl()));
@@ -37,9 +36,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => RegisterUsecase(sl()));
   sl.registerLazySingleton(() => ResetPasswordUsecase(repository: sl()));
   //Home
-  sl.registerLazySingleton(() => GetBannersUseCase(repo: sl()));
-  sl.registerLazySingleton(() => GetFeedUsecase(repo: sl()));
-  sl.registerLazySingleton(() => GetBestSellerUsecase(repo: sl()));
+  
   sl.registerLazySingleton(() => GetFeedDetailUsecase(repo: sl()));
 
   //Repository (interface+Impl)
@@ -47,5 +44,5 @@ Future<void> init() async {
   sl.registerLazySingleton<HomeRepo>(() => HomeRepoImpl(sl()));
 
   sl.registerLazySingleton(() => AuthRemoteDatasource(sl()));
-  sl.registerLazySingleton(() => HomeRemoteDatasource());
+  sl.registerLazySingleton(() => HomeRemoteDatasource(sl()));
 }
