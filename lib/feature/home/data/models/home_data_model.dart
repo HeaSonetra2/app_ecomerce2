@@ -15,13 +15,13 @@ class HomeDataModel {
 
   factory HomeDataModel.fromJson(Map<String, dynamic> json) {
     return HomeDataModel(
-      banner: (json['promotions'] as List)
+      banner: (json['promotions'] as List<dynamic>?   ?? [])
           .map((item) => BannerModel.fromJson(item))
           .toList(),
-      feed: (json['feed'] as List)
+      feed: (json['feed'] as List<dynamic>?   ?? [])
           .map((item) => ProductModel.fromJson(item))
           .toList(),
-      bestSeller: (json['best_seller'] as List)
+      bestSeller: (json['bestSelling'] as List<dynamic>?   ?? [])
           .map((item) => ProductModel.fromJson(item))
           .toList(),
     );

@@ -9,6 +9,7 @@ class HomeRemoteDatasource {
   Future<Map<String, dynamic>> getHome() async {
     try {
       final respone = await apiClient.dio.get('/api/v1/home');
+      print("RESPONSE DATA: ${respone.data}");
       // Debug print
       if (respone.data['success'] == true) {
         return respone.data;
@@ -26,24 +27,17 @@ class HomeRemoteDatasource {
   }
 
   Future<Map<String, dynamic>> getFeedDetail(String Id) async {
-    await Future.delayed(Duration(seconds: 2));
-
-    //dio.get('api/v1/product/feed/{id}')
-    //mock data
-    return {
-      'id': Id,
-      'name': 'Banana',
-      'qty': 7,
-      'stock_qty': 7,
-      'type': 'pcs',
-      'price': 5.5,
-      'desc':
-          'Hellovgbhjknmjhvggggggggggggggghhhhhfcgnnnnnnnnnnnnnnt7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
-      'isFav': true,
-      'nutrition': 5.5,
-      'review': 4.0,
-      'imageUrl':
-          'https://www.dole.com/sites/default/files/styles/512w384h-80/public/media/orange-wissen.jpg?itok=i9A3Dx0Q-22EZBL72',
-    };
+    try {
+      final respone = await apiClient.dio.get('/api/v1/products/feed/$Id');
+      print("RESPONSE DATA: ${respone.data}");
+      // Debug print
+      if (respone.data['success'] == true) {
+        return respone.data;
+      } else {
+        throw Exception(respone.data['message']);
+      }
+    } on Exception catch (e) {
+      throw Exception('Failed to load feed detail: $e');
+    }
   }
 }

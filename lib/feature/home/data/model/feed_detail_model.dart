@@ -5,7 +5,6 @@ class FeedDetailModel extends ProductDetail {
     required super.id,
     required super.name,
     required super.qty,
-    required super.stockQty,
     required super.type,
     required super.price,
     required super.desc,
@@ -17,17 +16,16 @@ class FeedDetailModel extends ProductDetail {
 
   factory FeedDetailModel.fromJson(Map<String, dynamic> json, String Id) {
     return FeedDetailModel(
-      id: json['id'],
-      name: json['name'],
-      qty: json['qty'],
-      stockQty: json['stock_qty'],
-      type: json['type'],
-      price: json['price'],
-      desc: json['desc'],
-      isFav: json['isFav'],
-      nutrition: json['nutrition'],
-      review: json['review'],
-      imageUrl: json['imageUrl'],
+      id: json['id'] ?? int.parse(Id),
+      name: json['name'] ?? '',
+      qty: json['qty'] ?? 0,
+      type: json['type'] ?? '',
+      price: json['price'] ?? 0.0,
+      desc: json['desc'] ?? '',
+      isFav: json['isFav'] ?? false,
+      nutrition: json['nutrition'] ?? 0.0,
+      review: json['review'] ?? 0.0,
+      imageUrl: json['imageUrl'] ?? '',
     );
   }
 }

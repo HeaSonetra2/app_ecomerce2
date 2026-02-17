@@ -136,6 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Row(
                                 children: List.generate(
                                   state.homeData.bestSeller.length,
+                                  
                                   (i) => _buildCardProduct(
                                     context,
                                     state.homeData.bestSeller[i],
@@ -215,15 +216,18 @@ Widget _buildCardProduct(BuildContext context, ProductModel item) {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Image(
-                image: NetworkImage(item.imageUrl),
+                image: NetworkImage(item.imageUrl ?? ''),
                 fit: BoxFit.fill,
               ),
             ),
           ),
 
           Text(
-            item.name,
-            style: AppTextStyle.heading3.copyWith(fontWeight: FontWeight.w600),
+            item.name ?? '',
+            style: AppTextStyle.heading3.copyWith(
+              fontWeight: FontWeight.w600,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
           Row(
             children: [
@@ -233,7 +237,10 @@ Widget _buildCardProduct(BuildContext context, ProductModel item) {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              Text(item.type),
+              Text(
+                item.type ?? '',
+                style: AppTextStyle.title.copyWith(color: Colors.grey),
+              ),
             ],
           ),
           SizedBox(height: 24),

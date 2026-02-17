@@ -6,7 +6,7 @@ class GetFeedDetailUsecase {
 
   GetFeedDetailUsecase({required this.repo});
 
-  Future<ProductDetail> call(String Id) {
+  Future<ProductDetail> call(int Id) {
     return repo.getFeedDetail(Id);
   }
 }

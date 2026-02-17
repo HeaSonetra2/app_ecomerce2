@@ -1,15 +1,14 @@
-
 class ProductModel {
-  final String id;
-  final String name;
+  final int id;
+  final String? name;
   final int qty;
-  final String type;
+  final String? type;
   final double price;
-  final String desc;
+  final String? desc;
   final bool isFav;
   final double nutrition;
   final double review;
-  final String imageUrl;
+  final String? imageUrl;
   ProductModel({
     required this.id,
     required this.name,
@@ -22,19 +21,19 @@ class ProductModel {
     required this.review,
     required this.imageUrl,
   });
-
+  
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      qty: json['qty'] as int,
-      type: json['type'] as String,
-      price: (json['price'] as num).toDouble(),
-      desc: json['desc'] as String,
-      isFav: json['fav'] as bool,
-      nutrition: (json['nutrition'] as num).toDouble(),
-      review: (json['review'] as num).toDouble(),
-      imageUrl: json['imageUrl'] as String,
+      id: json['id'] ?? 0,
+      name: json['name']?.toString() ?? '',
+      qty: json['qty'] ?? 0,
+      type: json['type']?.toString() ?? '',
+      price: (json['price'] as num?)?.toDouble() ?? 0.0,
+      desc: json['desc']?.toString() ?? '',
+      isFav: json['fav'] ?? false,
+      nutrition: (json['nutrition'] as num?)?.toDouble() ?? 0.0,
+      review: (json['review'] as num?)?.toDouble() ?? 0.0,
+      imageUrl: json['imageUrl']?.toString() ?? '',
     );
   }
 }

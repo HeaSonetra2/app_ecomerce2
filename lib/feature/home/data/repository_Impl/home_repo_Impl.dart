@@ -13,7 +13,6 @@ class HomeRepoImpl implements HomeRepo {
 
   HomeRepoImpl(this.remoteDatasource);
 
- 
   @override
   Future<List<Product>> getFeed() {
     // TODO: implement getFeed
@@ -21,22 +20,26 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<ProductDetail> getFeedDetail(String Id) {
-    // TODO: implement getFeedDetail
-    throw UnimplementedError();
+  Future<ProductDetail> getFeedDetail(int Id) {
+    final data = remoteDatasource.getFeedDetail(Id.toString());
+    return data.then((respone) {
+      final inner = respone['data'];
+      return FeedDetailModel.fromJson(inner, Id.toString());
+    });
   }
 
   @override
   Future<HomeDataModel> getHome() {
-    final data=remoteDatasource.getHome();
-    return data.then((respone) => HomeDataModel.fromJson(respone));
+    final data = remoteDatasource.getHome();
+    return data.then((respone) {
+      // remoteDatasource returns the full response object (with keys like
+      // 'success', 'message', 'data'). The model expects the inner 'data'
+      // map, so pass that if available.
+      final inner =
+          respone is Map<String, dynamic> && respone.containsKey('data')
+          ? respone['data']
+          : respone;
+      return HomeDataModel.fromJson(inner as Map<String, dynamic>);
+    });
   }
 }
-
-
-
-
-
-
-
-

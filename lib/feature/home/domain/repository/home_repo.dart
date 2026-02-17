@@ -7,5 +7,5 @@ abstract class HomeRepo {
   // Future<List<Product>> getBestSeller();
   Future<HomeDataModel> getHome();
   
-  Future<ProductDetail> getFeedDetail(String Id);
+  Future<ProductDetail> getFeedDetail(int Id);
 }

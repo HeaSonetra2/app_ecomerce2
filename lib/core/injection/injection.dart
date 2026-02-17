@@ -22,21 +22,21 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   //Bloc
-  sl.registerFactory(() => AuthBloc(sl(), sl(), sl(), sl(),sl(),sl()));
-  sl.registerFactory(() => HomeBloc(sl(),sl()));
-  sl.registerFactory(() => ApiClient());
+  sl.registerFactory(() => AuthBloc(sl(), sl(), sl(), sl(), sl(), sl()));
+  sl.registerFactory(() => HomeBloc(sl(), sl()));
   sl.registerLazySingleton<TokenStorage>(() => TokenStorage());
- 
+  sl.registerLazySingleton(() => ApiClient(sl()));
+
   //UseCase
   sl.registerLazySingleton(() => HomeUsecase(homeRepo: sl()));
   sl.registerLazySingleton(() => LoginUsecase(sl()));
   sl.registerLazySingleton(() => OtpSendUsecase(sl()));
   sl.registerLazySingleton(() => VerifyOtpUsecase(sl()));
-  
+
   sl.registerLazySingleton(() => RegisterUsecase(sl()));
   sl.registerLazySingleton(() => ResetPasswordUsecase(repository: sl()));
   //Home
-  
+
   sl.registerLazySingleton(() => GetFeedDetailUsecase(repo: sl()));
 
   //Repository (interface+Impl)

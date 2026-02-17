@@ -3,11 +3,12 @@ import 'package:ecomerce_app/core/theme/text_style.dart';
 import 'package:ecomerce_app/feature/home/presentation/bloc/home_bloc.dart';
 import 'package:ecomerce_app/feature/home/presentation/bloc/home_event.dart';
 import 'package:ecomerce_app/feature/home/presentation/bloc/home_state.dart';
+import 'package:ecomerce_app/feature/home/presentation/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailScreen extends StatefulWidget {
-  final String productId;
+  final int productId;
   const DetailScreen({super.key, required this.productId});
 
   @override
@@ -77,7 +78,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       top: 30,
                       child: IconButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
                         },
                         icon: Icon(Icons.arrow_back),
                       ),
@@ -154,7 +155,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       IconButton(
                         onPressed: () {
                           setState(() {
-                            if (counter < state.productDetail.stockQty) {
+                            if (counter < state.productDetail.qty) {
                               counter++;
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
