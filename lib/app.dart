@@ -1,6 +1,7 @@
 import 'package:ecomerce_app/core/injection/injection.dart';
 import 'package:ecomerce_app/core/routing/app_route.dart';
 import 'package:ecomerce_app/core/routing/page_route.dart';
+import 'package:ecomerce_app/feature/account/presentation/bloc/profile_bloc.dart';
 import 'package:ecomerce_app/feature/auth/presentation/bloc/bloc.dart';
 import 'package:ecomerce_app/feature/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class App extends StatelessWidget {
       providers: [
         BlocProvider.value(value: sl<AuthBloc>()),
         BlocProvider.value(value: sl<HomeBloc>()),
+        BlocProvider.value(value: sl<ProfileBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

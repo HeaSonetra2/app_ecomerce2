@@ -28,7 +28,7 @@ class HomeRemoteDatasource {
 
   Future<Map<String, dynamic>> getFeedDetail(String Id) async {
     try {
-      final respone = await apiClient.dio.get('/api/v1/products/feed/$Id');
+      final respone = await apiClient.dio.get('/api/v1/products/$Id');
       print("RESPONSE DATA: ${respone.data}");
       // Debug print
       if (respone.data['success'] == true) {

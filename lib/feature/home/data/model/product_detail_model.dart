@@ -25,7 +25,7 @@ class FeedDetailModel extends ProductDetail {
       isFav: json['isFav'] ?? false,
       nutrition: json['nutrition'] ?? 0.0,
       review: json['review'] ?? 0.0,
-      imageUrl: json['imageUrl'] ?? '',
+      imageUrl: json['thumbnailUrl'] ?? '',
     );
   }
 }

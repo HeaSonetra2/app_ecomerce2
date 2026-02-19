@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:ecomerce_app/feature/home/data/datasource/home_remote_datasource.dart';
-import 'package:ecomerce_app/feature/home/data/model/feed_detail_model.dart';
+import 'package:ecomerce_app/feature/home/data/model/product_detail_model.dart';
 import 'package:ecomerce_app/feature/home/data/models/home_data_model.dart';
 import 'package:ecomerce_app/feature/home/domain/entities/banner.dart';
 import 'package:ecomerce_app/feature/home/domain/entities/product.dart';

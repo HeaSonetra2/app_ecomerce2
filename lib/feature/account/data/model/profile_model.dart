@@ -11,7 +11,7 @@ class ProfileModel {
     required this.id,
     required this.phoneNumber,
     required this.name,
-    required this .gender,
+    required this.gender,
     required this.dob,
     required this.email,
     required this.address,

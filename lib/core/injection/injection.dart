@@ -1,5 +1,10 @@
 import 'package:ecomerce_app/core/network/api_client.dart';
 import 'package:ecomerce_app/core/storage/token_storage.dart';
+import 'package:ecomerce_app/feature/account/data/datasource/remote_datasource.dart';
+import 'package:ecomerce_app/feature/account/data/repository/profile_repo_Impl.dart';
+import 'package:ecomerce_app/feature/account/domain/repository/profile_repo.dart';
+import 'package:ecomerce_app/feature/account/domain/usecase/get_profile_usecase.dart';
+import 'package:ecomerce_app/feature/account/presentation/bloc/profile_bloc.dart';
 import 'package:ecomerce_app/feature/auth/data/datasource/auth_remote_datasource.dart';
 import 'package:ecomerce_app/feature/auth/data/model/otp_sent_model.dart';
 import 'package:ecomerce_app/feature/auth/data/repositories/repository_Impl.dart';
@@ -24,6 +29,7 @@ Future<void> init() async {
   //Bloc
   sl.registerFactory(() => AuthBloc(sl(), sl(), sl(), sl(), sl(), sl()));
   sl.registerFactory(() => HomeBloc(sl(), sl()));
+  sl.registerFactory(() => ProfileBloc(getProfileUsecase: sl()));
   sl.registerLazySingleton<TokenStorage>(() => TokenStorage());
   sl.registerLazySingleton(() => ApiClient(sl()));
 
@@ -38,11 +44,16 @@ Future<void> init() async {
   //Home
 
   sl.registerLazySingleton(() => GetFeedDetailUsecase(repo: sl()));
+  sl.registerLazySingleton(() => GetProfileUsecase(profileRepo: sl()));
 
   //Repository (interface+Impl)
   sl.registerLazySingleton<AuthRepository>(() => RepositoryImpl(sl()));
   sl.registerLazySingleton<HomeRepo>(() => HomeRepoImpl(sl()));
+  sl.registerLazySingleton<ProfileRepo>(
+    () => ProfileRepoImpl(remoteDataSource: sl()),
+  );
 
   sl.registerLazySingleton(() => AuthRemoteDatasource(sl()));
   sl.registerLazySingleton(() => HomeRemoteDatasource(sl()));
+  sl.registerLazySingleton(() => ProfileRemoteDataSource(sl()));
 }

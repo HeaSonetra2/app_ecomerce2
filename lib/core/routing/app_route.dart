@@ -6,5 +6,5 @@ class AppRoute {
   static const String explore = '/explore';
   static const String favorite = '/favorite';
   static const String cart = '/cart';
-  static const String account = '/acount';
+  static const String account = '/account';
 }
