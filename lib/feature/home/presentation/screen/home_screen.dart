@@ -136,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Row(
                                 children: List.generate(
                                   state.homeData.bestSeller.length,
-                                  
+
                                   (i) => _buildCardProduct(
                                     context,
                                     state.homeData.bestSeller[i],
@@ -167,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
             case 2:
               Navigator.pushNamed(context, AppRoute.home);
             case 3:
-              Navigator.pushNamed(context, AppRoute.home);
+              Navigator.pushNamed(context, AppRoute.cart);
             case 4:
               Navigator.pushNamed(context, AppRoute.account);
           }

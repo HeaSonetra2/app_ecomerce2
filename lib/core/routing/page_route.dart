@@ -1,6 +1,7 @@
 import 'package:ecomerce_app/feature/account/presentation/screen/profile_screen.dart';
 import 'package:ecomerce_app/feature/home/presentation/screen/home_screen.dart';
 import 'package:ecomerce_app/feature/onboading/onboading_screen.dart';
+import 'package:ecomerce_app/feature/order/presentation/screen/cart_screen.dart';
 import 'package:ecomerce_app/feature/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:ecomerce_app/feature/auth/presentation/screen/login_screen.dart';
@@ -20,7 +21,7 @@ class AppPageRoute {
       case AppRoute.favorite:
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case AppRoute.cart:
-        return MaterialPageRoute(builder: (_) => HomeScreen());
+        return MaterialPageRoute(builder: (_) => CartScreen());
       case AppRoute.account:
         return MaterialPageRoute(builder: (_) => ProfileScreen());
       default:

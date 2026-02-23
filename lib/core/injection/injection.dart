@@ -21,6 +21,11 @@ import 'package:ecomerce_app/feature/home/domain/repository/home_repo.dart';
 import 'package:ecomerce_app/feature/home/domain/usecase/get_feed_detail_usecase.dart';
 import 'package:ecomerce_app/feature/home/domain/usecase/home_usecase.dart';
 import 'package:ecomerce_app/feature/home/presentation/bloc/home_bloc.dart';
+import 'package:ecomerce_app/feature/order/data/datasource/cart_remote_datasource.dart';
+import 'package:ecomerce_app/feature/order/data/repositories_Impl/cart_repo_Impl.dart';
+import 'package:ecomerce_app/feature/order/domain/repository/cart_repo.dart';
+import 'package:ecomerce_app/feature/order/domain/usecase/get_cart_usecase.dart';
+import 'package:ecomerce_app/feature/order/presentation/bloc/cart_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
@@ -30,6 +35,7 @@ Future<void> init() async {
   sl.registerFactory(() => AuthBloc(sl(), sl(), sl(), sl(), sl(), sl()));
   sl.registerFactory(() => HomeBloc(sl(), sl()));
   sl.registerFactory(() => ProfileBloc(getProfileUsecase: sl()));
+  sl.registerFactory(() => GetCartBloc(sl()));
   sl.registerLazySingleton<TokenStorage>(() => TokenStorage());
   sl.registerLazySingleton(() => ApiClient(sl()));
 
@@ -45,6 +51,7 @@ Future<void> init() async {
 
   sl.registerLazySingleton(() => GetFeedDetailUsecase(repo: sl()));
   sl.registerLazySingleton(() => GetProfileUsecase(profileRepo: sl()));
+  sl.registerLazySingleton(() => GetCartUseCase(sl()));
 
   //Repository (interface+Impl)
   sl.registerLazySingleton<AuthRepository>(() => RepositoryImpl(sl()));
@@ -52,8 +59,10 @@ Future<void> init() async {
   sl.registerLazySingleton<ProfileRepo>(
     () => ProfileRepoImpl(remoteDataSource: sl()),
   );
+  sl.registerLazySingleton<CartRepo>(() => CartRepoImpl(sl()));
 
   sl.registerLazySingleton(() => AuthRemoteDatasource(sl()));
   sl.registerLazySingleton(() => HomeRemoteDatasource(sl()));
   sl.registerLazySingleton(() => ProfileRemoteDataSource(sl()));
+  sl.registerLazySingleton(() => CartRemoteDatasource(sl()));
 }
