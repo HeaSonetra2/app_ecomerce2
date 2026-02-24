@@ -12,4 +12,9 @@ class CartRepoImpl implements CartRepo {
     final data = await cartRemoteDatasource.getCartDetail();
     return CartModel.fromJson(data);
   }
+  @override
+  Future<CartModel> updateQtyCart(int productId, int quantity) async {
+    final data = await cartRemoteDatasource.updateQtyCart(productId, quantity);
+    return CartModel.fromJson(data);
+  }
 }

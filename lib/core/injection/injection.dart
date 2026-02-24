@@ -25,6 +25,7 @@ import 'package:ecomerce_app/feature/order/data/datasource/cart_remote_datasourc
 import 'package:ecomerce_app/feature/order/data/repositories_Impl/cart_repo_Impl.dart';
 import 'package:ecomerce_app/feature/order/domain/repository/cart_repo.dart';
 import 'package:ecomerce_app/feature/order/domain/usecase/get_cart_usecase.dart';
+import 'package:ecomerce_app/feature/order/domain/usecase/update_qty_cart_usecase.dart';
 import 'package:ecomerce_app/feature/order/presentation/bloc/cart_bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -35,7 +36,7 @@ Future<void> init() async {
   sl.registerFactory(() => AuthBloc(sl(), sl(), sl(), sl(), sl(), sl()));
   sl.registerFactory(() => HomeBloc(sl(), sl()));
   sl.registerFactory(() => ProfileBloc(getProfileUsecase: sl()));
-  sl.registerFactory(() => GetCartBloc(sl()));
+  sl.registerFactory(() => GetCartBloc(sl(),sl()));
   sl.registerLazySingleton<TokenStorage>(() => TokenStorage());
   sl.registerLazySingleton(() => ApiClient(sl()));
 
@@ -52,6 +53,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetFeedDetailUsecase(repo: sl()));
   sl.registerLazySingleton(() => GetProfileUsecase(profileRepo: sl()));
   sl.registerLazySingleton(() => GetCartUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateQtyCartUseCase(sl()));
 
   //Repository (interface+Impl)
   sl.registerLazySingleton<AuthRepository>(() => RepositoryImpl(sl()));
