@@ -17,7 +17,7 @@ class CartModel {
 
   factory CartModel.fromJson(Map<String, dynamic> json) {
     return CartModel(
-      cartTotal: json['cartTotal'] ?? 0.0,
+      cartTotal: (json['cartTotal'] as num).toDouble(),
       deliveryFee: json['deliveryFee'] ?? 0.0,
       tax: json['tax'] ?? 0.0,
       items: (json['items'] as List)

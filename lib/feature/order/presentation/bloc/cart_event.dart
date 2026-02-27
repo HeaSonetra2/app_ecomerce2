@@ -10,3 +10,10 @@ class UpdateCartQtyEvent extends CartEvent {
 
   UpdateCartQtyEvent({required this.productId, required this.quantity});
 }
+
+class AddCartEvent extends CartEvent {
+  final int productId;
+  final int quantity;
+
+  AddCartEvent({required this.productId, required this.quantity});
+}

@@ -4,6 +4,9 @@ import 'package:ecomerce_app/feature/home/presentation/bloc/home_bloc.dart';
 import 'package:ecomerce_app/feature/home/presentation/bloc/home_event.dart';
 import 'package:ecomerce_app/feature/home/presentation/bloc/home_state.dart';
 import 'package:ecomerce_app/feature/home/presentation/screen/home_screen.dart';
+import 'package:ecomerce_app/feature/order/presentation/bloc/cart_bloc.dart';
+import 'package:ecomerce_app/feature/order/presentation/bloc/cart_event.dart';
+import 'package:ecomerce_app/feature/order/presentation/screen/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -239,18 +242,24 @@ class _DetailScreenState extends State<DetailScreen> {
                 SizedBox(height: 24),
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Container(
-                    width: double.infinity,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(14),
-                      color: AppColors.primary,
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Add to cart',
-                        style: AppTextStyle.heading2.copyWith(
-                          color: Colors.white,
+                  child: InkWell(
+                    onTap: () {
+                      context.read<GetCartBloc>().add(AddCartEvent(productId: widget.productId, quantity: counter));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()));
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(14),
+                        color: AppColors.primary,
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Add to cart',
+                          style: AppTextStyle.heading2.copyWith(
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),

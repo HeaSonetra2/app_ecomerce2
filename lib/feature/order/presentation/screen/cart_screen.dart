@@ -65,7 +65,7 @@ class _CartScreenState extends State<CartScreen> {
             return const Center(child: CircularProgressIndicator());
           } else if (state is CartLoaded) {
             final cartDetail = state.cartDetail;
-             
+
             if (!_hasLocalChanges && _localCartItems.isEmpty) {
               _localCartItems = List.from(cartDetail.items);
             }
@@ -73,7 +73,7 @@ class _CartScreenState extends State<CartScreen> {
               children: [
                 Expanded(
                   child: ListView.builder(
-                    itemCount: cartDetail.items.length,
+                    itemCount: _localCartItems.length,
                     itemBuilder: (context, index) {
                       final item = cartDetail.items[index];
                       final isAvailable = item.quantity > 0;
@@ -132,40 +132,25 @@ class _CartScreenState extends State<CartScreen> {
                     padding: const EdgeInsets.all(12),
                     child: Column(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('Subtotal', style: TextStyle(fontSize: 16)),
-                            Text(
-                              '\$${cartDetail.cartTotal.toStringAsFixed(2)}',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                          ],
+                        _localCartItems.isEmpty
+                            ? _buildCartItem()
+                            :
+                        _buildSummery(
+                          _calculateLocalCartTotal(),
+                          cartDetail.deliveryFee,
+                          cartDetail.tax,
+                          cartDetail.cartTotal,
                         ),
-                        SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Delivery Fee',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            Text(
-                              '\$${cartDetail.deliveryFee.toStringAsFixed(2)}',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('Tax', style: TextStyle(fontSize: 16)),
-                            Text(
-                              '\$${cartDetail.tax.toStringAsFixed(2)}',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                          ],
+                        const SizedBox(height: 16),
+                        _localCartItems.isEmpty?Container():
+                        ElevatedButton(
+                          onPressed: _hasLocalChanges
+                              ? () {
+                                  // Handle checkout with local cart items
+                                  print('Proceeding to checkout with local changes');
+                                }
+                              : null,
+                          child: const Text('Checkout'),
                         ),
                       ],
                     ),
@@ -210,14 +195,91 @@ class _CartScreenState extends State<CartScreen> {
                 ? () {
                     // Handle increase quantity
                     _updateLocalCartItems(item.id, 1);
-                    print(
-                      '============================Increased quantity of ${item.name}',
-                    );
                   }
                 : null,
           ),
         ],
       ),
     );
+  }
+
+  Widget _buildSummery(
+    double subtotal,
+    double deliveryFee,
+    double tax,
+    double total,
+  ) {
+    final total = subtotal + deliveryFee + tax;
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          _buildSummaryRow('Subtotal', subtotal),
+          const SizedBox(height: 8),
+          _buildSummaryRow('Delivery Fee', deliveryFee),
+          const SizedBox(height: 8),
+          _buildSummaryRow('Tax', tax),
+          const Divider(height: 20, thickness: 1),
+          _buildSummaryRow('Total', total),
+        ],
+      ),
+    );
+  }
+  
+  Widget _buildSummaryRow(String label, double value) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(label, style: TextStyle(fontSize: 16)),
+        Text('\$${value.toStringAsFixed(2)}', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+      ],
+    );
+  }
+
+  Widget _buildCartItem() {
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(children: [
+            Icon(
+              Icons.shopping_bag_outlined,
+              size: 48,
+              color: Colors.green,
+            ),
+            const SizedBox(height: 12),
+            Text('Your cart is empty', style: TextStyle(fontSize: 18)),
+            const SizedBox(height: 8),
+            Text(
+              'Looks like you haven\'t added anything to your cart yet.',
+              style: TextStyle(fontSize: 14, color: Colors.grey),
+              textAlign: TextAlign.center,
+            ),
+            ElevatedButton(onPressed: (){
+              // Navigate to product listing or home screen
+            }, 
+            child:  Text('Continue Shopping'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green,
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            )
+          ],
+        ),
+      ));
   }
 }

@@ -6,6 +6,25 @@ class CartRemoteDatasource {
     final ApiClient apiClient;
 
   CartRemoteDatasource(this.apiClient);
+
+   Future<Map<String, dynamic>> addCart(int productId, int quantity) async {
+    try {
+      final respone = await apiClient.dio.post('/api/v1/cart/items', data: {
+        'productId': productId,
+        'quantity': quantity,
+      });
+      print("RESPONSE DATA: ${respone.data}");
+      // Debug print
+      if (respone.data['success'] == true) {
+        return respone.data['data'];
+      } else {
+        throw Exception('Failed to add cart item');
+      }
+    } catch (e) {
+      print("Error adding cart item: $e");
+      throw Exception('Failed to add cart item');
+    }
+  }
   
   Future<Map<String, dynamic>> getCartDetail() async {
     try {
